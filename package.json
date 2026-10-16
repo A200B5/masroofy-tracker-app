@@ -1,0 +1,30 @@
+{
+  "name": "masroofy-tracker",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node src/test_trends_and_profile.mjs && node src/test_final_qa.mjs && node src/test_phase4_rewards.mjs && node src/test_phase3b_budget.mjs && node src/test_phase3a_analytics.mjs && node src/test_phase2b_edit_delete.mjs && node src/test_phase2a_details.mjs && node src/test_financial_integrity.mjs",
+    "test:trends-profile": "node src/test_trends_and_profile.mjs",
+    "test:qa": "node src/test_final_qa.mjs",
+    "test:rewards": "node src/test_phase4_rewards.mjs",
+    "test:budget": "node src/test_phase3b_budget.mjs",
+    "test:analytics": "node src/test_phase3a_analytics.mjs",
+    "test:edit": "node src/test_phase2b_edit_delete.mjs",
+    "test:details": "node src/test_phase2a_details.mjs",
+    "test:integrity": "node src/test_financial_integrity.mjs"
+  },
+  "dependencies": {
+    "lucide-react": "^1.16.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^5.4.14",
+    "vite-plugin-pwa": "^0.21.1"
+  }
+}
