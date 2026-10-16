@@ -50,13 +50,22 @@ export default function RecentTransactions({
         {transactions.length === 0 ? (
           <div
             style={{
-              padding: '24px',
+              padding: '28px 16px',
               textAlign: 'center',
               color: 'var(--text-muted)',
               fontSize: '0.88rem',
             }}
           >
-            {t('dashboard.noTransactions', {}, 'No transactions recorded yet.')}
+            <p style={{ margin: '0 0 6px 0', fontWeight: 600 }}>
+              {t('dashboard.noTransactions', {}, 'No transactions recorded yet.')}
+            </p>
+            <p style={{ margin: 0, fontSize: '0.78rem', opacity: 0.8 }}>
+              {t(
+                'dashboard.noTransactionsSub',
+                {},
+                'Tap "Add Expense" or "Add Income" to start tracking your finances.'
+              )}
+            </p>
           </div>
         ) : (
           transactions.map((tx) => {

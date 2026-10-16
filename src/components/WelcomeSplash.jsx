@@ -83,7 +83,7 @@ export default function WelcomeSplash({ onGetStarted }) {
             fontWeight: 700,
           }}
         >
-          {language === 'ar' ? 'نسخة أكاديمية تجريبية 🧪' : 'Academic Evaluation Release 🧪'}
+          {language === 'ar' ? 'المتتبع المالي الذكي ✨' : 'Smart Personal Finance ✨'}
         </div>
       </div>
 

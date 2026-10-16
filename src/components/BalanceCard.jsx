@@ -28,7 +28,7 @@ export default function BalanceCard({ balance, currency = '£' }) {
           {showBalance ? (
             <>
               <span className="balance-currency">{currency}</span>
-              <span>{balance.current.toLocaleString(language === 'ar' ? 'ar-EG' : 'en-US')}</span>
+              <span>{(balance?.current || 0).toLocaleString(language === 'ar' ? 'ar-EG' : 'en-US')}</span>
             </>
           ) : (
             <span style={{ letterSpacing: '4px', fontSize: '1.8rem' }}>••••••••</span>
@@ -39,8 +39,8 @@ export default function BalanceCard({ balance, currency = '£' }) {
           <TrendingUp size={15} className="trend-arrow" />
           <span>
             {language === 'ar'
-              ? `النمو هذا الشهر ${balance.growthPercent}% ↑`
-              : `Growth this month ${balance.growthPercent}% ↑`}
+              ? `النمو هذا الشهر ${balance?.growthPercent || 0}% ↑`
+              : `Growth this month ${balance?.growthPercent || 0}% ↑`}
           </span>
         </div>
       </div>

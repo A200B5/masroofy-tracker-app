@@ -13,11 +13,10 @@ import RewardsPage from './pages/RewardsPage';
 import SettingsPage from './pages/SettingsPage';
 
 import {
-  INITIAL_BALANCE,
-  INITIAL_TRANSACTIONS,
   INITIAL_USER,
 } from './data/mockData';
 import { parseStoredBudget } from './utils/budget';
+import { EMPTY_BALANCE } from './utils/analytics';
 import {
   calculateTransactionPoints,
   processRedemption,
@@ -81,23 +80,29 @@ export default function App() {
     }
   });
 
-  // Balance state (Preserves financial integrity 5250 = 7590 - 2340)
+  // Balance state (starts at zero for fresh installations, loads and preserves saved user data)
   const [balance, setBalance] = useState(() => {
     try {
       const saved = localStorage.getItem('masroofy_balance');
-      return saved ? JSON.parse(saved) : INITIAL_BALANCE;
+      return saved ? JSON.parse(saved) : EMPTY_BALANCE;
     } catch {
-      return INITIAL_BALANCE;
+      return EMPTY_BALANCE;
     }
   });
 
-  // Transactions state
+  // Transactions state (starts empty [] for fresh installations, loads and preserves saved user data)
   const [transactions, setTransactions] = useState(() => {
     try {
       const saved = localStorage.getItem('masroofy_transactions');
-      return saved ? JSON.parse(saved) : INITIAL_TRANSACTIONS;
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          return parsed;
+        }
+      }
+      return [];
     } catch {
-      return INITIAL_TRANSACTIONS;
+      return [];
     }
   });
 
@@ -118,14 +123,7 @@ export default function App() {
 
   const [awardedTransactions, setAwardedTransactions] = useState(() => {
     const saved = localStorage.getItem('masroofy_awarded_tx');
-    if (saved) return parseStoredAwardedTransactions(saved);
-    // Initialize with demo expenses so they are not re-awarded on top of the 350 starting points
-    const initialMap = {};
-    for (const t of INITIAL_TRANSACTIONS) {
-      const pts = calculateTransactionPoints(t);
-      if (pts > 0) initialMap[t.id] = pts;
-    }
-    return initialMap;
+    return saved ? parseStoredAwardedTransactions(saved) : {};
   });
 
   // Modal states
@@ -453,23 +451,18 @@ export default function App() {
         t(
           'settings.resetConfirm',
           {},
-          'Are you sure you want to reset all data back to the default demo state? This will restore 350 points and lock Dark Mode.'
+          'Are you sure you want to reset all financial data? This will clear all transactions, reset your balance to zero, and restore 350 welcome points.'
         )
       )
     ) {
-      setBalance(INITIAL_BALANCE);
-      setTransactions(INITIAL_TRANSACTIONS);
+      setBalance(EMPTY_BALANCE);
+      setTransactions([]);
       setUser(INITIAL_USER);
       setBudget(null);
       setTheme('light');
       setUnlockedRewards([]); // Dark mode starts locked!
       setRedemptionsHistory([]);
-      const initialMap = {};
-      for (const t of INITIAL_TRANSACTIONS) {
-        const pts = calculateTransactionPoints(t);
-        if (pts > 0) initialMap[t.id] = pts;
-      }
-      setAwardedTransactions(initialMap);
+      setAwardedTransactions({});
       localStorage.removeItem('masroofy_transactions');
       localStorage.removeItem('masroofy_balance');
       localStorage.removeItem('masroofy_user');
@@ -478,7 +471,7 @@ export default function App() {
       localStorage.removeItem('masroofy_redemptions');
       localStorage.removeItem('masroofy_awarded_tx');
       localStorage.setItem('masroofy_theme', 'light');
-      alert(t('settings.resetSuccess', {}, 'Demo data has been successfully restored!'));
+      alert(t('settings.resetSuccess', {}, 'Financial data has been reset to zero successfully!'));
     }
   };
 

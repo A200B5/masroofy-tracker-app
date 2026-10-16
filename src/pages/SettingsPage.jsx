@@ -311,13 +311,13 @@ export default function SettingsPage({
             </div>
             <div>
               <div className="settings-item-title" style={{ color: '#DC2626' }}>
-                {t('settings.resetTitle', {}, 'Reset Demo Data')}
+                {t('settings.resetTitle', {}, 'Reset Financial Data')}
               </div>
               <div className="settings-item-value">
                 {t(
                   'settings.resetDesc',
                   {},
-                  'Restore initial demo transactions, balance, and lock Dark Mode'
+                  'Clear all transactions, reset balance to zero, and lock Dark Mode'
                 )}
               </div>
             </div>

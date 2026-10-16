@@ -3,6 +3,16 @@
  * Phase 3A: Dynamic Transaction-Based Analytics Engine
  */
 
+export const EMPTY_BALANCE = {
+  current: 0,
+  growthPercent: 0,
+  isGrowthPositive: true,
+  income: 0,
+  incomeGrowth: 0,
+  expenses: 0,
+  expenseChange: 0,
+};
+
 export const ARABIC_MONTH_NAMES = [
   'يناير',
   'فبراير',

@@ -4,7 +4,6 @@ import SummaryCards from '../components/SummaryCards';
 import QuickActions from '../components/QuickActions';
 import BudgetCard from '../components/BudgetCard';
 import RecentTransactions from '../components/RecentTransactions';
-import { Sparkles } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function DashboardPage({
@@ -22,27 +21,16 @@ export default function DashboardPage({
 
   return (
     <div className="dashboard-page animate-fade-in">
-      {/* Demonstration Data Banner for Academic Context */}
-      <div
-        className="demo-badge-pill"
-        title={language === 'ar' ? 'مشروع أكاديمي تعليمي' : 'Academic Demonstration Project'}
-      >
-        <Sparkles size={14} color="#0D9488" />
-        <span>
-          {language === 'ar'
-            ? 'بيانات تجريبية توضيحية لتقييم المشروع'
-            : 'Demonstration data for project evaluation'}
-        </span>
-      </div>
-
       {/* 1. Current Balance Card */}
       <BalanceCard balance={balance} currency={currency} />
 
       {/* 2. Income & Expense Summary Cards */}
       <SummaryCards
-        income={balance.income}
-        expenses={balance.expenses}
+        income={balance?.income || 0}
+        expenses={balance?.expenses || 0}
         currency={currency}
+        incomeGrowth={balance?.incomeGrowth || 0}
+        expenseChange={balance?.expenseChange || 0}
       />
 
       {/* 3. Quick Action Buttons */}

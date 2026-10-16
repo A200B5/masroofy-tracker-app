@@ -651,12 +651,12 @@ export default function ReportsPage({ balance, transactions = [], currency = '£
         <div>
           <span>{t('reports.totalAccountBalance', {}, 'Total Account Balance: ')}</span>
           <strong style={{ color: 'var(--text-primary)', fontFamily: 'var(--font-numbers)' }}>
-            {(balance?.current ?? 5250).toLocaleString(language === 'ar' ? 'ar-EG' : 'en-US')}{' '}
+            {(balance?.current ?? 0).toLocaleString(language === 'ar' ? 'ar-EG' : 'en-US')}{' '}
             {currency}
           </strong>
           <span> • {t('reports.totalCumulativeExpenses', {}, 'Total Cumulative Expenses: ')}</span>
           <strong style={{ color: 'var(--text-primary)', fontFamily: 'var(--font-numbers)' }}>
-            {(balance?.expenses ?? 2340).toLocaleString(language === 'ar' ? 'ar-EG' : 'en-US')}{' '}
+            {(balance?.expenses ?? 0).toLocaleString(language === 'ar' ? 'ar-EG' : 'en-US')}{' '}
             {currency}
           </strong>
         </div>
